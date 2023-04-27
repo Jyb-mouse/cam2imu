@@ -60,7 +60,7 @@ extrinsic_ori:
 geojson_path: /home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/new_GS4/marking1.geojson
 height: 1080
 imu_id: 0
-output_dir: /home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/output/new_GS4_output.yaml
+# output_dir: /home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/output/new_GS4_output.yaml
 topics:
   gps-0: /met/gps/lla
   image: /slam/image

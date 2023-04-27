@@ -129,7 +129,7 @@ class Board(object):
             self.imu_anchors, self.ext_i2c, max_depth=100, min_depth=3)
         if (cam_pts.shape[0] > 0):
             img_pts = im_utils.proj_cam2img(cam_pts, intrinsic, distortion, 
-                             new_camera_intrinsic, width=1824, height=944, cam_type=type)
+                             new_camera_intrinsic, width=1824, height=944, cam_type=self.cam_type)
             lenth = len(img_pts)
             for i in range(0,lenth):
                 pygame.draw.circle(self.screen, (255, 0, 0), (int(img_pts[i][0]), int(img_pts[i][1])), 3, 2)

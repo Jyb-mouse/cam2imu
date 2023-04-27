@@ -42,8 +42,10 @@ def proj_cam2img(cam_pts, intrinsic, distortion, new_camera_intrinsic, width=102
     """
     # FIXME: cannot associate input with output
     if cam_type == 'fisheye':
-        img_pts, _ = cv.fisheye.projectPoints(cam_pts.reshape(-1, 1, 3), np.zeros((3, 1)), np.zeros((3, 1)),
-                                              intrinsic, distortion[:4])
+        # img_pts, _ = cv.fisheye.projectPoints(cam_pts.reshape(-1, 1, 3), np.zeros((3, 1)), np.zeros((3, 1)),
+        #                                       intrinsic, distortion[:4])
+        get_valid = True
+        img_pts = project3DPtsToDSImg(cam_pts, intrinsic, get_valid)
     else:
         img_pts, _ = cv.projectPoints(cam_pts.reshape(-1, 1, 3), np.zeros((3, 1)), np.zeros((3, 1)),
                                       intrinsic, distortion)
@@ -210,7 +212,7 @@ def map_homo_composition(mp, H, dst_size, mode=1):
     ret_mp[:, :, 1] = cv.morphologyEx(ret_mp[:, :, 1], cv.MORPH_CLOSE, np.ones((3, 3), np.uint8))
     return ret_mp
 
-def dscamera2pixel( p_c, param, valid):
+def dscamera2pixel( p_c, param):
     fx = param[0]
     fy = param[1]
     cx = param[2]
@@ -247,7 +249,7 @@ def dscamera2pixel( p_c, param, valid):
     proj[0] = fx * mx + cx
     proj[1] = fy * my + cy 
 
-    return proj
+    return proj, valid
 
 def pixel2dscamera(proj, param, valid):
     fx = param[0]
@@ -282,18 +284,15 @@ def pixel2dscamera(proj, param, valid):
     
     return p3d
 
-def project3DPtsToDSImg(pts_3d, param, get_valid, tfrom):
+def project3DPtsToDSImg(pts_3d, param, get_valid):
     pts_2d = []
     pts_size = np.size(pts_3d)
     for i in range(pts_size):
         tmp_point = pts_3d[i]
-        R = tfrom[0:3, 0:3]
-        t = tfrom[0:3, 3]
-        pt_tfrom = R * tmp_point + t
-
-        valid = False
-
-        pt_piexl = dscamera2pixel(pt_tfrom, param, valid)
+        # R = tfrom[0:3, 0:3]
+        # t = tfrom[0:3, 3]
+        # pt_tfrom = R * tmp_point + t
+        pt_piexl, valid= dscamera2pixel(tmp_point, param)
         if get_valid:
             if valid:
                 pts_2d.append(pt_piexl)

@@ -1,0 +1,71 @@
+aligner: /slam/image
+bag_file: /home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/new_GS4/18.bag
+base:
+- 31.206388889
+- 121.689444445
+cam_distort:
+- 14.23191402697758
+- 13.35471561776512
+- 0.0003856671911666913
+- -2.716917387627506e-05
+- 1.533884393881034
+- 14.92654012185822
+- 22.26740416463808
+- 7.298974197142029
+cam_id: '3'
+cam_intrinsic:
+- - 1213.22793
+  - 0.0
+  - 958.757305
+- - 0.0
+  - 1213.22793
+  - 540.802247
+- - 0.0
+  - 0.0
+  - 1.0
+extrinsic:
+- - 0.999743529905137
+  - 0.011968042410463849
+  - -0.019225748197519137
+  - -0.08745067667815026
+- - -0.01945173620234971
+  - 0.019061637504126268
+  - -0.9996290682771932
+  - -0.4683887290047832
+- - -0.011597124602438374
+  - 0.9997466791484905
+  - 0.019289554225242894
+  - -1.84430101394562
+- - 0.0
+  - 0.0
+  - 0.0
+  - 1.0
+extrinsic_ori:
+- - 0.99962191
+  - 0.01924625
+  - -0.01963736
+  - -0.02025086
+- - -0.01989909
+  - 0.01350317
+  - -0.99971081
+  - -0.49787335
+- - -0.01897551
+  - 0.99972359
+  - 0.01388105
+  - -1.55145984
+- - 0.0
+  - 0.0
+  - 0.0
+  - 1.0
+geojson_path: /home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/new_GS4/marking1.geojson
+height: 1080
+imu_id: 0
+output_dir: /home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/output/new_GS4_output.yaml
+topics:
+  gps-0: /met/gps/lla
+  image: /slam/image
+  velo: /met/gps/velocity
+ts_begin: 00:00:00
+ts_end: 00:01:00
+type: pinhole
+width: 1920

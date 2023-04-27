@@ -1,0 +1,63 @@
+
+# geojson_path: '/home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/A12/0413.geojson'
+# bag_file: '/home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/A12/1_20230413_055920_007.bag'
+# output_dir: "/home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/output/A12_output.yaml"
+geojson_path: '/root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/A12/0413.geojson'
+bag_file: '/root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/A12/1_20230413_055920_007.bag'
+output_dir: "/root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/output/A12_output.yaml"
+ts_begin: '00:00:00'
+ts_end: '00:01:00'
+base: [31.206388889, 121.689444445]
+aligner: '/velodyne/image/compressed'
+topics: {    
+    'gps-0': '/met/gps/lla',
+    'image': '/velodyne/image/compressed',
+    'velo': '/met/gps/velocity'
+}
+cam_id: '3'    
+imu_id: 0
+type: 'pinhole'
+width: 1824
+height: 944
+
+cam_intrinsic: 
+- [1463.1887235131180, 0.0, 930.06369927748381]
+- [0.0, 1462.9860405817967, 481.64944232730574]
+- [0.0, 0.0, 1.0]
+
+cam_distort: [3.6790691260073891, 0.56024618101271395, 0.000029578301760834392, 0.000018976828996932809, -0.0091014135195192549, 4.8930843717867001, 3.0002268960089866, 0.0]
+extrinsic:
+- - 0.9999203075709029
+  - -0.012131235131232454
+  - 0.0034962652474688715
+  - 0.032864164886899236
+- - 0.003386864148659977
+  - -0.00902713282807097
+  - -0.9999535245497839
+  - -0.4905306196509366
+- - 0.012162232585906764
+  - 0.9998856647153639
+  - -0.008985324281835847
+  - -1.244963768825655
+- - 0.0
+  - 0.0
+  - 0.0
+  - 1.0
+
+extrinsic_ori:
+- - 0.9983
+  - 0.0506
+  - 0.0303
+  - 0.0387
+- - 0.0318
+  - -0.0294
+  - -0.9991
+  - -1.2072
+- - -0.0497
+  - 0.9983
+  - -0.031
+  - -0.5949
+- - 0.0
+  - 0.0
+  - 0.0
+  - 1.0

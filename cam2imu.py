@@ -98,7 +98,7 @@ class Cam2imu(object):
 
 def main():
     # config_path = '/root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/config/new_GS4.yaml'
-    config_path = '/home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/config/new_GS4.yaml'
+    config_path = '/root/cam2imu/config/GS4.yaml'
     cfg = ConfigLoader(config_path)
 
     cam2imu = Cam2imu(cfg)

@@ -1,5 +1,5 @@
 aligner: /velodyne/image/compressed
-bag_file: /root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/GS4/2023-03-01-22-23-15_merge1.bag
+bag_file: /root/cam2imu/data/GS4/2023-03-01-22-23-15.bag
 base:
 - 31.206388889
 - 121.689444445
@@ -27,11 +27,11 @@ extrinsic:
 - - 0.9999274224366984
   - -0.0081802736674163
   - -0.008844311095823718
-  - 0.1497285911193869
+  - 0.1467285911193869
 - - -0.008815333009258223
   - 0.0035717501914860673
   - -0.999954760428572
-  - -0.6659555903696521
+  - -0.6359555903696521
 - - 0.008211497461349053
   - 0.9999601633341023
   - 0.003499385396774396
@@ -57,10 +57,10 @@ extrinsic_ori:
   - 0.0
   - 0.0
   - 1.0
-geojson_path: /root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/GS4/marking.geojson
+geojson_path: /root/cam2imu/data/GS4/marking.geojson
 height: 944
 imu_id: 0
-output_dir: /root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/output/GS4_output.yaml
+output_dir: /root/cam2imu/data/output/GS4.yaml
 topics:
   gps-0: /met/gps/lla
   image: /velodyne/image/compressed

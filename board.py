@@ -46,6 +46,7 @@ class Board(object):
         self.imu_anchors = []  # in IMU coords
         self.init_extrinsic = None
         self.ext_i2c = None
+        self.img = None
         self.bg = Background()
         pygame.init()
         # os.environ["SDL_VIDEODRIVER"] = "dummy"
@@ -106,6 +107,7 @@ class Board(object):
 
     def set_input(self, im, pts):
         im = cv.resize(im, self.img_shape)
+        self.img = im
         im_str = im.tostring()
 
         self.bg.set_img(im_str, self.width, self.height)
@@ -129,16 +131,18 @@ class Board(object):
             self.imu_anchors, self.ext_i2c, max_depth=100, min_depth=3)
         if (cam_pts.shape[0] > 0):
             img_pts = im_utils.proj_cam2img(cam_pts, intrinsic, distortion, 
-                             new_camera_intrinsic, width=1824, height=944, cam_type=self.cam_type)
+                             new_camera_intrinsic, self.width, self.height, cam_type=self.cam_type)
             lenth = len(img_pts)
             for i in range(0,lenth):
                 pygame.draw.circle(self.screen, (255, 0, 0), (int(img_pts[i][0]), int(img_pts[i][1])), 3, 2)
+                # cv.circle(self.img, (int(img_pts[i][0]), int(img_pts[i][1])), 5, (0, 140, 255), -1)
                 if i < lenth / 2 :
                     if int(img_pts[i][0]) == int(img_pts[i+4][0]):
                         pygame.draw.line(self.screen, (0, 255, 0), (int(img_pts[i][0]),int(img_pts[i][1])), (int(img_pts[i+1][0]),int(img_pts[i+1][1])), 2)
                         pygame.draw.line(self.screen, (0, 255, 0), (int(img_pts[i+1][0]),int(img_pts[i+1][1])), (int(img_pts[i+2][0]),int(img_pts[i+2][1])),  2)
                         pygame.draw.line(self.screen, (0, 255, 0), (int(img_pts[i+2][0]),int(img_pts[i+2][1])), (int(img_pts[i+3][0]),int(img_pts[i+3][1])),  2)
                         pygame.draw.line(self.screen, (0, 255, 0), (int(img_pts[i+3][0]),int(img_pts[i+3][1])), (int(img_pts[i+4][0]),int(img_pts[i+4][1])),  2)
+            # cv.imwrite('./old.jpg',self.img)
     def save_imu2cam_extrinsic(self, output_dir, extrinsic):
         T_imu2cam = extrinsic
         T_imu2cam = T_imu2cam.tolist()

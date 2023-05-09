@@ -1,17 +1,17 @@
-aligner: /camera/maxieye/665/compressed
-bag_file: /root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/HS5/20230420_175227467_hq.bag
+aligner: /camera/maxieye/610/compressed
+bag_file: /root/cam2imu/data/HS5/20230420_175227467_hq.bag
 base:
 - 31.206388889
 - 121.689444445
 cam_distort:
-- -0.19919832305817203
-- 0.08536355743165748
-- 6.79732945272754e-05
-- 5.961414255065788e-05
-- 0.03876970243493246
-- 0.35745020572327524
-- -0.13866685540404844
-- 0.141586534049574
+- 2.7915920800281673
+- 0.2325430038523537
+- 9.439173840558158e-05
+- 0.00015494335273350373
+- 0.0193763384603976
+- 3.950746651824471
+- 1.9066403495653699
+- 0.0
 - 0.0
 - 0.0
 - 0.0
@@ -20,28 +20,28 @@ cam_distort:
 - 0.0
 cam_id: '3'
 cam_intrinsic:
-- - 1317.908115099552
+- - 1454.272220071105
   - 0.0
-  - 933.0646602860838
+  - 928.1658785666249
 - - 0.0
-  - 1317.9632491811283
-  - 535.6035942370662
+  - 1454.272220071105
+  - 476.79717420753076
 - - 0.0
   - 0.0
   - 1.0
 extrinsic:
-- - 0.9977576215973064
-  - -0.06115559837518276
-  - 0.02719781786130194
-  - 0.0985143464238745
-- - 0.023035070362638643
-  - -0.06777196760149051
-  - -0.997434883877141
-  - -0.7363874754924681
-- - 0.06284197686776656
-  - 0.9958247600572337
-  - -0.0662112736050737
-  - -1.0406918607968685
+- - 0.9993502389842136
+  - -0.03578896280600011
+  - 0.004271996463537282
+  - -0.19875696608164983
+- - 0.003523399334370726
+  - -0.02095400237519656
+  - -0.9997742330501803
+  - -0.6035020469955965
+- - 0.03587039835483198
+  - 0.9991396696528515
+  - -0.020814288337309597
+  - -1.7157271473974445
 - - 0.0
   - 0.0
   - 0.0
@@ -63,13 +63,13 @@ extrinsic_ori:
   - 0.0
   - 0.0
   - 1.0
-geojson_path: /root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/HS5/marking.geojson
+geojson_path: /root/cam2imu/data/HS5/marking.geojson
 height: 944
 imu_id: 0
-output_dir: /root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/output/HS5_output.yaml
+output_dir: /root/cam2imu/data/HS5/HS5_output.yaml
 topics:
   gps-0: /met/gps/lla
-  image: /camera/maxieye/665/compressed
+  image: /camera/maxieye/610/compressed
   velo: /met/gps/velocity
 ts_begin: 00:00:00
 ts_end: 00:02:00

@@ -2,8 +2,8 @@
 # geojson_path: '/home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/A12/0413.geojson'
 # bag_file: '/home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/A12/1_20230413_055920_007.bag'
 # output_dir: "/home/mouse/Documents/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/output/A12_output.yaml"
-geojson_path: '/root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/A12/0413.geojson'
-bag_file: '/root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/data/A12/1_20230413_055920_007.bag'
+geojson_path: '/root/cam2imu//data/A12/0413.geojson'
+bag_file: '/root/cam2imu/data/A12/1_20230413_055920_007.bag'
 output_dir: "/root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/output/A12_output.yaml"
 ts_begin: '00:00:00'
 ts_end: '00:01:00'

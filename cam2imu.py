@@ -3,6 +3,7 @@ import cv2 as cv
 import numpy as np
 import yaml
 import pyproj
+from cv_bridge import CvBridge
 from pyquaternion import Quaternion
 from pyproj import Transformer
 from transformation_utils import TransformPoints
@@ -55,7 +56,7 @@ class Cam2imu(object):
 
     def get_init_extrinsic(self, path):
         yaml_con = yaml.load(open(path, 'r'), Loader=yaml.SafeLoader)
-        cut_T_i2c = yaml_con['extrinsic']
+        cut_T_i2c = yaml_con['extrinsic_ori']
         return cut_T_i2c
 
     def get_valid_point(self, points_imu, cut_T_i2c):
@@ -67,38 +68,58 @@ class Cam2imu(object):
     def run(self, map_marks):
         cut_T_i2c = self.get_init_extrinsic(self.output_path)
         cut_T_i2c = np.array(cut_T_i2c)
+        cov_list = []
+        type_list = []
         for data in self.bag_reader.read(self.ts_begin, self.ts_end):
             
             # get GPS and image information
             print(data['indix'])
             cur_gps_info = data['gps-0'][1]
+            if(cur_gps_info.position_covariance_type != 4):
+                continue
+            print("cur_gps_info.position_covariance: ", cur_gps_info.position_covariance[0], cur_gps_info.position_covariance[4], cur_gps_info.position_covariance[8])
+            cov_list.append(cur_gps_info.position_covariance[0])
+            type_list.append(cur_gps_info.position_covariance_type)
+            print("cur_gps_info.position_covariance_type:", cur_gps_info.position_covariance_type)
+            T = data['camera_ins'][1]
+            T1 = np.linalg.inv(T)                   
 
             print("gps_timestamp: ", data['gps-0'][0]/1e9)
-            print("image_timestamp: ", data['image'][0]/1e9)
-            img_data = data['image'][1]
-            img = cv.imdecode(np.fromstring(img_data.data,np.uint8), cv.IMREAD_COLOR)
+            print("image_timestamp: ", data['camera'][0]/1e9)
+            img_data = data['camera'][1]
+            print(img_data._type)
+            # str_img =  str(img_data)
+            cv_image = CvBridge().imgmsg_to_cv2(img_data, desired_encoding='passthrough')
+            # cv_image = cv.imdecode(np.fromstring(img_data.data,np.uint8), cv.IMREAD_COLOR)
             
             # get points in imu coordinary
             # lla_qj = np.array([data['gps-0'][1].latitude, data['gps-0'][1].longitude, data['gps-0'][1].altitude])
             enu_imu = self.map_server.lla2enu(cur_gps_info)
             R_imu2enu = self.map_server.get_R_imu2enu(cur_gps_info)
+            # R_imu2enu = T1[0:3, 0:3]
             # q = Quaternion(matrix = R_imu2enu)
             # print(q.x, q.y, q.z, q.w)
             T_enu2imu = self.map_server.get_T_enu2imu(R_imu2enu, enu_imu)
-            points_imu = self.map_server.transPoints_enu2imu(map_marks, T_enu2imu)           
+            points_imu = self.map_server.transPoints_enu2imu(map_marks, T1)           
             print("current_T_i2c:", cut_T_i2c)
 
             # points_finalys = self.get_valid_point(points_imu, cut_T_i2c)
             # img_pts = im_utils.proj_cam2img(points_finalys, self.cam_intrinsic, self.cam_distort, self.new_camera_intrinsic, width=1824, height=944, cam_type=type)
-            self.key_board.set_input(img, points_imu) 
+            self.key_board.set_input(cv_image, points_imu) 
             self.key_board.run(self.cam_intrinsic, self.cam_distort, cut_T_i2c, self.new_camera_intrinsic)
             cut_T_i2c = self.key_board._get_ext()
             print('------------rectify T:', cut_T_i2c)
-
+        std_cov = np.mean(cov_list)
+        print("cov: ", cov_list)
+        print("std_cov: ", std_cov)
+        print("type: ", type_list)
+        # print("std_cov: ", std_cov)
 
 def main():
     # config_path = '/root/cam2imu_manual_calib/src/cam2imu_manual_calib/cam2imu_manual_calib/config/new_GS4.yaml'
-    config_path = '/root/cam2imu/config/GS4.yaml'
+    # config_path = '/home/jyb/calib_ws/cam2imu/config/new_GS4.yaml'
+    config_path = '/root/cam2imu/config/HS5(220pro).yaml'
+    # config_path = '/root/cam2imu/config/new_GS4.yaml'
     cfg = ConfigLoader(config_path)
 
     cam2imu = Cam2imu(cfg)

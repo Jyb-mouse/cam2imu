@@ -91,8 +91,16 @@ class ENUTransformer(object):
         return self.ecef_transformer
 
     def get_geodetic2enu(self, lat, lon, alt, roll, pitch, yaw, is_deg=True):
+        transformertest1 = pyproj.Transformer.from_crs(
+            "epsg:4326", "epsg:32651"
+            )
+        x,y,z = transformertest1.transform(lat, lon, alt)
+        enu_imu = np.array([x,y,z])
         pose = self.ecef_transformer.get_geodetic2global(lat, lon, alt, roll, pitch, yaw, is_deg)
         pose[0:3, 0:4] = np.dot(self.ecef_base_rot.T , pose[0:3, 0:4])
+        pose[0,3] = enu_imu[0]
+        pose[1,3] = enu_imu[1]
+        pose[2,3] = enu_imu[2]
         return pose
     
     def trans_geodetic2enu(self, lat, lon, alt, is_deg=True):

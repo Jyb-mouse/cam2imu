@@ -94,7 +94,7 @@ class Map_server(object):
         diff = self.get_utm_yaw_bias(cur_gps_info.latitude, cur_gps_info.longitude, utm_zone)
         # R_imu2enu =  R.from_euler('xyz', [cur_gps_info.position_covariance[2]  ,cur_gps_info.position_covariance[1],
         #                  -cur_gps_info.position_covariance[3]], degrees=True).as_matrix()
-        a = np.deg2rad(np.array([cur_gps_info.position_covariance[1],cur_gps_info.position_covariance[2], -cur_gps_info.position_covariance[3]]))
+        a = np.deg2rad(np.array([cur_gps_info.position_covariance[1],cur_gps_info.position_covariance[2], -cur_gps_info.position_covariance[3]] + diff))
         R_imu2enu = self.geodetic_to_enu_rot(a[0], a[1],a[2])
         print(R_imu2enu)
         return R_imu2enu

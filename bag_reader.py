@@ -240,7 +240,7 @@ class RosbagReader(object):
             data.update(
                 {key: topic_data[i] for i, key in enumerate(self.topic_keys_total)})
             self.fetch_lidar_start_end_ins(data)
-            # self.fetch_sensor_ins(data)
+            self.fetch_sensor_ins(data)
             yield data
 
 
